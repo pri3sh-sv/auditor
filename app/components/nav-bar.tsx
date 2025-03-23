@@ -18,7 +18,7 @@ const AppNavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     return (
-        <HeroNavBar className="bg-white mx-auto h-16"
+        <HeroNavBar className="mx-auto h-16"
                     isMenuOpen={isMenuOpen}
                     onMenuOpenChange={setIsMenuOpen}
                     isBlurred={true}
