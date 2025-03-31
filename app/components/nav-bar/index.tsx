@@ -43,18 +43,30 @@ const AppNavBar = () => {
     const navigate = useNavigate();
     const [isSearchOpen, setIsSearchOpen] = useState(false);
 
+    // Close all sections when menu is closed
+    useEffect(() => {
+        if (!isMenuOpen) {
+            setExpandedSections([]);
+            setExpandedSubSections([]);
+        }
+    }, [isMenuOpen]);
+
     const handleOptionClick = (path: string) => {
         navigate(path);
         setIsMenuOpen(false);
         setActiveDropdown(null);
+        setExpandedSections([]);
+        setExpandedSubSections([]);
     };
 
     const toggleSection = (title: string) => {
         setExpandedSections(prev => 
             prev.includes(title) 
-                ? prev.filter(t => t !== title)
-                : [...prev, title]
+                ? [] // Close all sections
+                : [title] // Open only this section
         );
+        // Close all subsections when changing sections
+        setExpandedSubSections([]);
     };
 
     const toggleSubSection = (sectionKey: string) => {
@@ -75,7 +87,7 @@ const AppNavBar = () => {
     const handleMouseLeave = (event: React.MouseEvent) => {
         timeoutRef.current = setTimeout(() => {
             setActiveDropdown(null);
-        }, 100);
+        }, 300);
     };
 
     useEffect(() => {
@@ -172,7 +184,7 @@ const AppNavBar = () => {
                                             w-[90vw] max-w-modal-width bg-white/95 backdrop-blur-sm rounded-modal 
                                             shadow-dropdown border border-gray-100/50 py-8 px-container-padding
                                             transition-all duration-300 ease-in-out opacity-0 translate-y-2 z-modal
-                                            ${activeDropdown === item.title ? 'opacity-100 translate-y-12' : ''}`}
+                                            ${activeDropdown === item.title ? 'opacity-100 translate-y-10' : ''}`}
                                     >
                                         <div className="grid grid-cols-3 gap-8">
                                             {Object.entries(dropdownData[item.title] || {}).map(([key, section]) => (
