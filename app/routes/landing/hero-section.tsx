@@ -1,66 +1,231 @@
 import { motion } from "framer-motion";
-import logo from "../../assets/landing/mobile-hero.png";
-import picture1 from "../../assets/landing/mobile-hero-lg-r.png";
-import picture2 from "../../assets/landing/mobile-hero-lg-l.png";
+import { FiCheck, FiArrowRight, FiMail } from "react-icons/fi";
+import { HiDocumentText, HiCurrencyRupee, HiShieldCheck } from "react-icons/hi2";
+import { useEffect, useState } from "react";
+import { Button, Input } from "@heroui/react";
 
-import {useEffect, useState} from "react";
-import {Button, Input} from "@heroui/react";
+const features = [
+    {
+        icon: <HiDocumentText className="w-6 h-6" />,
+        title: "Easy Documentation",
+        description: "Hassle-free paperwork handling"
+    },
+    {
+        icon: <HiCurrencyRupee className="w-6 h-6" />,
+        title: "Competitive Pricing",
+        description: "Best-in-market rates guaranteed"
+    },
+    {
+        icon: <HiShieldCheck className="w-6 h-6" />,
+        title: "100% Compliance",
+        description: "Full legal compliance assured"
+    }
+];
 
-const HeroSection = () => {
+const benefits = [
+    "Quick Registration Process",
+    "Expert Consultation",
+    "24/7 Support Available",
+    "Secure Documentation"
+];
 
-    const textList = [
-        `" Empowering You "`,
-        "Your Success",
-        "Simplify Your ",
-    ];
-
-    const [currentIndex, setCurrentIndex] = useState(0);
+// Client-side only Lottie component with screen size awareness
+const LottieAnimation = () => {
+    const [mounted, setMounted] = useState(false);
+    const [LottieComponent, setLottieComponent] = useState<any>(null);
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % textList.length);
-        }, 3000);
-        return () => clearInterval(interval);
-    }, [textList.length]);
+        setMounted(true);
+        const checkScreenSize = () => {
+            setIsSmallScreen(window.innerWidth < 1024);
+        };
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
 
+        // Lazy load Lottie and animation data based on screen size
+        Promise.all([
+            import('lottie-react'),
+            import(`../../assets/landing/hero-section-${isSmallScreen ? 'sm' : 'lg'}.json`)
+        ]).then(([lottie, animation]) => {
+            setLottieComponent(() => {
+                const Comp = lottie.default;
+                return () => <Comp animationData={animation.default} />;
+            });
+        });
 
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, [isSmallScreen]);
+
+    if (!mounted || !LottieComponent) {
+        return (
+            <div className="w-full h-64 bg-gray-50 rounded-lg animate-pulse" />
+        );
+    }
+
+    return <LottieComponent />;
+};
+
+const HeroSection = () => {
     return (
-        <section className={"h-fit w-full bg-bg flex justify-center items-center md:pt-5 lg:pt-8"}>
-            <div className="p-6 flex-col bg-[#fcfcfc] flex md:flex-row md:w-[45rem] md:h-[25rem] md:shadow-md md:rounded-2xl md:gap-8 lg:w-[80rem] lg:h-[35rem]">
-                <img src={logo} alt="hero-image" className="object-contain mb-12 md:hidden"/>
-                <img src={picture1} alt="hero-image" className="object-contain hidden md:block rounded-3xl"/>
-
-                <div className="flex flex-col gap-4 h-fit">
-                    <p className="font-noto font-semibold text-4xl md:text-4xl lg:text-6xl">
-                        Empowering You to Streamline Your Business Journey
-                    </p>
-
-                    <p className="text-gray-600 font-noto font-light text-sm md:text-base lg:text-lg">
-                        We are a team of passionate and dedicated professionals who are dedicated to helping you stay legally compliant.
-                    </p>
-
-                    {/* Animated Text Box */}
+        <section className="relative min-h-[90vh] overflow-hidden">
+            {/* Gradient Background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white via-primary/5 to-primary/10" />
+            
+            {/* Content Container */}
+            <div className="container mx-auto px-4 pt-20 lg:pt-28">
+                <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 items-center">
+                    {/* Left Content */}
                     <motion.div
-                        key={currentIndex}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 1 }}
-                        className="mt-5 font-noto font-light text-sm bg-gray-100 rounded-2xl shadow-md px-6 py-2 w-fit"
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="relative z-10 text-center lg:text-left"
                     >
-                        {textList[currentIndex]}
+                        <motion.span
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2, duration: 0.5 }}
+                            className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary font-medium text-sm mb-6"
+                        >
+                            Trusted by 10,000+ Businesses
+                        </motion.span>
+
+                        <motion.h1
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3, duration: 0.5 }}
+                            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6"
+                        >
+                            Start Your Business
+                            <span className="relative inline-block ml-2">
+                                Journey
+                                <svg className="absolute -bottom-[27px] lg:-bottom-[39px] w-full" viewBox="0 0 100 20" preserveAspectRatio="none">
+                                    <motion.path
+                                        initial={{ pathLength: 0 }}
+                                        animate={{ pathLength: 1 }}
+                                        transition={{ delay: 0.5, duration: 1 }}
+                                        d="M0,5 Q50,15 100,5"
+                                        stroke="#F37920"
+                                        strokeWidth="4"
+                                        fill="none"
+                                    />
+                                </svg>
+                            </span>
+                        </motion.h1>
+
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4, duration: 0.5 }}
+                            className="text-base sm:text-lg text-gray-600 mb-8 max-w-xl mx-auto lg:mx-0"
+                        >
+                            Streamline your business registration process with our expert guidance and comprehensive support.
+                        </motion.p>
+
+                        {/* Benefits List */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5, duration: 0.5 }}
+                            className="grid grid-cols-2 gap-3 sm:gap-4 mb-8 w-full max-w-xl mx-auto lg:mx-0"
+                        >
+                            {benefits.map((benefit, index) => (
+                                <motion.div
+                                    key={index}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.6 + index * 0.1 }}
+                                    className="flex items-center gap-2 justify-start"
+                                >
+                                    <div className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#55B848] flex items-center justify-center">
+                                        <FiCheck className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
+                                    </div>
+                                    <span className="text-gray-700 text-sm sm:text-base text-center sm:text-left">{benefit}</span>
+                                </motion.div>
+                            ))}
+                        </motion.div>
+
+                        {/* Email Input */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.7, duration: 0.5 }}
+                            className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto lg:mx-0"
+                        >
+                            <div className="relative flex-1">
+                                <Input
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    variant="bordered"
+                                    className="w-full"
+                                    startContent={
+                                        <FiMail className="text-secondary flex-shrink-0 text-xl mr-2 sm:mr-4" />
+                                    }
+                                />
+                            </div>
+                            <Button
+                                variant="solid"
+                                className="bg-secondary hover:!bg-secondary/90 !rounded-full !px-4 text-white"
+                            >
+                                Reach Us
+                                <FiArrowRight className="w-4 h-4 ml-2" />
+                            </Button>
+                        </motion.div>
                     </motion.div>
 
+                    {/* Right Content - Animation and Cards */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1 }}
+                        className="relative h-[300px] mb-10 md:mb-0 md:h-[300px] lg:h-[650px] flex items-center justify-center"
+                    >
+                        {/* Centered Lottie Animation */}
+                        <div className="relative z-10 w-full sm:w-[85%] lg:w-[75%]">
+                            <LottieAnimation />
+                        </div>
 
-                    {/*<Button className={"border-3 mt-10 border-black rounded-full bg-white px-10 py-5 w-fit font-roboto font-light text-lg"}>*/}
-                    {/*    Choose Your Service*/}
-                    {/*</Button>*/}
-
+                        {/* Floating Feature Cards - Only visible on lg screens */}
+                        {features.map((feature, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ 
+                                    opacity: 1, 
+                                    scale: 1,
+                                    y: [0, -10, 0]
+                                }}
+                                transition={{
+                                    delay: 0.2 * index,
+                                    y: {
+                                        duration: 3,
+                                        repeat: Infinity,
+                                        repeatType: "reverse",
+                                        delay: index * 0.5
+                                    }
+                                }}
+                                className={`absolute bg-white rounded-xl p-4 shadow-lg w-48 z-20 hidden lg:block
+                                    ${index === 0 ? 'top-4 left-1/2 -translate-x-1/2' : 
+                                    index === 1 ? 'top-1/3 -translate-y-1/2 right-[-30px]' : 
+                                    'bottom-0 left-1/2 -translate-x-1/2'}`}
+                            >
+                                <div className="flex items-start gap-3">
+                                    <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                                        {feature.icon}
+                                    </div>
+                                    <div>
+                                        <h3 className="font-medium text-gray-900">{feature.title}</h3>
+                                        <p className="text-sm text-gray-500 mt-1">{feature.description}</p>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </motion.div>
                 </div>
-                <img src={picture2} alt="hero-image" className="object-contain hidden lg:block rounded-3xl"/>
             </div>
         </section>
-    )
-}
+    );
+};
 
 export default HeroSection;

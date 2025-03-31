@@ -4,7 +4,6 @@ import {
     NavbarContent,
     NavbarItem,
     NavbarMenuToggle,
-    Input,
     NavbarMenu
 } from "@heroui/react";
 import logo from "../../assets/nav-bar/logo.jpg";
@@ -183,8 +182,8 @@ const AppNavBar = () => {
                                         className={`fixed left-1/2 transform -translate-x-1/2 
                                             w-[90vw] max-w-modal-width bg-white/95 backdrop-blur-sm rounded-modal 
                                             shadow-dropdown border border-gray-100/50 py-8 px-container-padding
-                                            transition-all duration-300 ease-in-out opacity-0 translate-y-2 z-modal
-                                            ${activeDropdown === item.title ? 'opacity-100 translate-y-10' : ''}`}
+                                            transition-all duration-300 ease-in-out opacity-0 translate-y-2 z-modal mt-8
+                                            ${activeDropdown === item.title ? 'opacity-100' : ''}`}
                                     >
                                         <div className="grid grid-cols-3 gap-8">
                                             {Object.entries(dropdownData[item.title] || {}).map(([key, section]) => (
