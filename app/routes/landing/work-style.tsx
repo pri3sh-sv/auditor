@@ -24,14 +24,14 @@ const steps = [
 
 const WorkStyle = () => {
     return (
-        <section className="min-h-screen w-full py-20 lg:py-28 overflow-hidden">
+        <section className="w-full py-16 mt-16 lg:py-24 lg:mt-24 overflow-hidden">
             <div className="container mx-auto px-4">
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.8 }}
-                    className="flex flex-col items-center gap-6 lg:gap-16"
+                    className="flex flex-col items-center gap-12"
                 >
                     {/* Title with gradient underline */}
                     <div className="text-center relative">
@@ -58,7 +58,7 @@ const WorkStyle = () => {
 
                     {/* Steps Grid */}
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 w-full max-w-6xl mx-auto relative">
-                        {/* Connector Lines - Now positioned absolutely relative to grid */}
+                        {/* Connector Lines */}
                         <div className="hidden lg:block absolute top-1/2 left-[33%] right-[33%] -translate-y-1/2 h-[3px] bg-gradient-to-r from-primary/20 to-secondary/20" />
                         
                         {steps.map(({ icon, title, description, color }, index) => (
@@ -78,7 +78,7 @@ const WorkStyle = () => {
                             >
                                 {/* Card */}
                                 <div className={`
-                                    relative p-8 rounded-2xl bg-white shadow-lg h-[250px]
+                                    relative p-6 sm:p-8 rounded-2xl bg-white shadow-lg h-[200px] sm:h-[220px]
                                     before:absolute before:inset-0 before:bg-gradient-to-br ${color}
                                     before:rounded-2xl before:opacity-40 before:transition-opacity
                                     group-hover:before:opacity-60
@@ -94,15 +94,15 @@ const WorkStyle = () => {
                                         whileInView={{ scale: 1, opacity: 1 }}
                                         viewport={{ once: true }}
                                         transition={{ delay: 0.4 * (index + 1), duration: 0.5 }}
-                                        className="text-primary mb-6"
+                                        className="text-primary mb-4"
                                     >
                                         {icon}
                                     </motion.div>
                                     
                                     {/* Content */}
-                                    <div className="space-y-3">
-                                        <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
-                                        <p className="text-gray-600 leading-relaxed">{description}</p>
+                                    <div className="space-y-2">
+                                        <h3 className="text-lg sm:text-xl font-semibold text-gray-900">{title}</h3>
+                                        <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{description}</p>
                                     </div>
                                 </div>
                             </motion.div>
