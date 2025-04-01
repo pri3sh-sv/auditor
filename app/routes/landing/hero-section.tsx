@@ -29,33 +29,41 @@ const benefits = [
     "Secure Documentation"
 ];
 
-// Client-side only Lottie component with screen size awareness
 const LottieAnimation = () => {
     const [mounted, setMounted] = useState(false);
     const [LottieComponent, setLottieComponent] = useState<any>(null);
-    const [isSmallScreen, setIsSmallScreen] = useState(false);
 
     useEffect(() => {
         setMounted(true);
-        const checkScreenSize = () => {
-            setIsSmallScreen(window.innerWidth < 1024);
-        };
-        checkScreenSize();
-        window.addEventListener('resize', checkScreenSize);
-
-        // Lazy load Lottie and animation data based on screen size
+        // Dynamically import Lottie and animations only on client side
         Promise.all([
             import('lottie-react'),
-            import(`../../assets/landing/hero-section-${isSmallScreen ? 'sm' : 'lg'}.json`)
-        ]).then(([lottie, animation]) => {
-            setLottieComponent(() => {
-                const Comp = lottie.default;
-                return () => <Comp animationData={animation.default} />;
-            });
+            import('../../assets/landing/hero-section-sm.json'),
+            import('../../assets/landing/hero-section-lg.json')
+        ]).then(([lottie, mobileAnim, desktopAnim]) => {
+            const Lottie = lottie.default;
+            setLottieComponent(() => () => (
+                <div className="w-full h-full">
+                    {/* Mobile Animation */}
+                    <div className="block lg:hidden w-full h-full">
+                        <Lottie
+                            animationData={mobileAnim.default}
+                            loop={true}
+                            className="w-full h-full"
+                        />
+                    </div>
+                    {/* Desktop Animation */}
+                    <div className="hidden lg:block w-full h-full">
+                        <Lottie
+                            animationData={desktopAnim.default}
+                            loop={true}
+                            className="w-full h-full"
+                        />
+                    </div>
+                </div>
+            ));
         });
-
-        return () => window.removeEventListener('resize', checkScreenSize);
-    }, [isSmallScreen]);
+    }, []);
 
     if (!mounted || !LottieComponent) {
         return (
