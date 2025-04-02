@@ -104,10 +104,10 @@ const WorkStyle = () => {
                                         <h3 className="text-lg sm:text-xl font-semibold text-gray-900">{title}</h3>
                                         <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{description}</p>
                                     </div>
-                                </div>
+                        </div>
                             </motion.div>
-                        ))}
-                    </div>
+                    ))}
+                </div>
                 </motion.div>
             </div>
         </section>

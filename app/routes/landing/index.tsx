@@ -6,7 +6,7 @@ import Features from "~/routes/landing/features";
 
 const Landing = () => {
     return (
-        <div className={"bg-bg w-full h-[100%]"}>
+        <div className="bg-bg min-h-screen w-full overflow-x-hidden">
             <AppNavBar/>
             <HeroSection/>
             <WorkStyle/>
