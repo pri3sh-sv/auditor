@@ -24,7 +24,7 @@ const steps = [
 
 const WorkStyle = () => {
     return (
-        <section className="w-full py-16 mt-16 lg:py-24 lg:mt-24 overflow-hidden">
+        <section className="w-full py-8 mt-8 lg:py-12 lg:mt-12 overflow-hidden">
             <div className="container mx-auto px-4">
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }}

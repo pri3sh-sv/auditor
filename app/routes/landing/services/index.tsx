@@ -9,7 +9,7 @@ const ServicesSection = () => {
     const [activeCategory, setActiveCategory] = useState<ServiceCategory>("business");
 
     return (
-        <section className="min-h-screen w-full py-16 lg:py-24 bg-gray-50/50">
+        <section className="min-h-screen w-full py-8 lg:py-12 bg-gray-50/50">
             <div className="container mx-auto px-4">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

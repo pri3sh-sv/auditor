@@ -140,11 +140,6 @@ const LottieAnimation = () => {
 };
 
 const HeroSection = () => {
-    const { scrollY } = useScroll();
-    const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-    const scale = useTransform(scrollY, [0, 300], [1, 0.95]);
-    const y = useTransform(scrollY, [0, 300], [0, 50]);
-
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -188,12 +183,9 @@ const HeroSection = () => {
     };
 
     return (
-        <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+        <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
             {/* Rich Gradient Background */}
-            <motion.div 
-                style={{ opacity }}
-                className="absolute inset-0 bg-gradient-to-br from-gray-50 via-gray-100/80 to-gray-200/50"
-            >
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-gray-100/80 to-gray-200/50">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(20,88,134,0.2),rgba(243,121,32,0.15))]" />
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -204,13 +196,10 @@ const HeroSection = () => {
                         background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%)'
                     }}
                 />
-            </motion.div>
+            </div>
             
             {/* Content Container */}
-            <motion.div 
-                style={{ opacity, scale, y }}
-                className="container mx-auto px-4 py-6 sm:py-12 relative z-10 h-full flex items-center"
-            >
+            <div className="container mx-auto px-4 py-6 sm:py-24 lg:py-12 relative z-10 h-full flex items-center">
                 <motion.div 
                     variants={containerVariants}
                     initial="hidden"
@@ -317,7 +306,7 @@ const HeroSection = () => {
                                             "!cursor-text",
                                             "border-3 border-secondary",
                                             "rounded-full",
-                                            "h-[3.125rem]",
+                                            "h-[3.125rem]"
                                         ],
                                     }}
                                     startContent={
@@ -331,8 +320,7 @@ const HeroSection = () => {
                             >
                                 <Button
                                     variant="solid"
-                                    className="bg-secondary hover:bg-secondary/90 active:bg-secondary/80 !rounded-full !px-8 text-white font-medium h-[3.125rem] w-full sm:w-auto
-                                        ring-1 ring-secondary hover:ring-2 hover:ring-secondary/50 focus:ring-2 focus:ring-secondary/50 transition-all duration-200"
+                                    className="bg-secondary hover:bg-secondary/90 !rounded-full !px-8 text-white font-medium h-[3.125rem] w-full sm:w-auto"
                                 >
                                     Reach Us
                                     <FiArrowRight className="w-5 h-5 ml-2" />
@@ -387,7 +375,7 @@ const HeroSection = () => {
                         ))}
                     </motion.div>
                 </motion.div>
-            </motion.div>
+            </div>
         </section>
     );
 };
