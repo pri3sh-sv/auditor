@@ -6,3 +6,40 @@
 .min-h-webkit-fill {
     min-height: -webkit-fill-available;
   }
+
+/* Route change loading animations */
+@keyframes progressAnimation {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Shimmer effect for gradient background */
+@keyframes shimmerEffect {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* Glow effect animation */
+@keyframes glowEffect {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
