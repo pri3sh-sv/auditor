@@ -25,7 +25,7 @@ export const ServiceContent = ({ category }: ServiceContentProps) => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300 flex flex-col h-full"
+                    className="bg-white rounded-2xl shadow-lg overflow-auto min-h-webkit-fill group hover:shadow-xl transition-shadow duration-300 flex flex-col h-full"
                 >
                     {/* Service Card */}
                     <div className="p-6 flex flex-col flex-grow">
