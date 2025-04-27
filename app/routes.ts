@@ -11,6 +11,8 @@ export default
         // route("opc", "routes/business/opc.tsx"),
         // route("startup", "routes/business/startup.tsx"),
         // route("sole-proprietorship", "routes/business/sole-proprietorship.tsx"),
+    ]),
+    ...prefix("api", [
+        route("send-inquiry", "routes/api/send-inquiry.ts")
     ])
-    
 ] satisfies RouteConfig;
